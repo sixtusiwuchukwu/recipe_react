@@ -16,7 +16,7 @@ const Hero = () => {
           serves quality food and drinks to our customer. */}
           Explore a World of Flavor: Discover Delicious Recipes to Elevate Your Everyday Cooking and Impress Your Loved Ones
         </p>
-        <button className="btn">Explore</button>
+        <a className="btn" href="#explore" >Explore</a>
       </div>
       <div className="right">
         <img alt="fruitImages" src={fruitImages} style={{width:'380px',height:'auto'}}/>
@@ -59,16 +59,19 @@ const HeroSection = styled.div`
     }
 
     .btn {
+      color: black;
       background-color: #f7ca37;
       float: left;
       border: none;
       width: 40%;
-      height: 40px;
+      /* height: 40px; */
+      padding: 10px;
       border-radius: 20px;
       font-size: 14px;
       cursor: pointer;
-      font-weight: 100;
+      font-weight: 600;
       font-style: normal;
+      text-align: center;
     }
 
     .btn:hover {

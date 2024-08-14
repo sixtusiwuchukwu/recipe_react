@@ -29,7 +29,7 @@ const Explore = () => {
         />
         <h4>Explore Our Recipes</h4>
       </div>
-      <div className="recipe-container">
+      <div className="recipe-container" id='explore'>
         {currentItems.map((item, index) => (
           <div
             key={index}
