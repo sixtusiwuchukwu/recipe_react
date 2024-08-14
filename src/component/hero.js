@@ -76,7 +76,7 @@ const HeroSection = styled.div`
 
     .btn:hover {
       background: transparent;
-      border: 2px solid #f7ca37;
+      border: 1px solid #f7ca37;
     }
   }
 
