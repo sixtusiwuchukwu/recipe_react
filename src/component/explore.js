@@ -1,17 +1,18 @@
 import React,{useState} from "react";
 import styled from "styled-components";
 import imageheader from "../assets/explore.png";
+import { db } from "../recipe.db";
 const Explore = () => {
     const itemsPerPage = 12;
     const [currentPage, setCurrentPage] = useState(1);
   
-  const items = [1,2,3,4,5,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6]
-
+  const items = [...db]
   const totalPages = Math.ceil(items.length / itemsPerPage);
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = items.slice(indexOfFirstItem, indexOfLastItem);
+  console.log(currentItems,"currentItems")
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -26,7 +27,11 @@ const Explore = () => {
       <div className="recipe-container">
         {
             currentItems.map((item,index)=>(
-                <div key={index} className="recipe" style={{backgroundImage:`url(${imageheader})`,backgroundPosition:'center',backgroundRepeat:'no-repeat',borderRadius:'8px',backgroundSize:'cover'}}></div>
+                // <div key={index} className="recipe" style={{backgroundImage:`url(${imageheader})`,backgroundPosition:'center',backgroundRepeat:'no-repeat',borderRadius:'8px',backgroundSize:'cover'}}>
+              <div key={index} className="recipe" style={{backgroundImage: `url(${item.image})`,backgroundPosition:'center',backgroundRepeat:'no-repeat',borderRadius:'8px',backgroundSize:'cover'}}> 
+                <p>{item.title}</p>
+                <button>View {'>>'}</button>
+                </div>
             ))
         }
         <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange}/>
@@ -59,14 +64,33 @@ const ExploreWrapper = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-}
 
-.recipe-container .recipe {
+    .recipe {
     background-color: brown;
     width: calc(25% - 20px); /* Adjusted to fit four in a row with spacing */
     height: 200px;
     margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    p{
+      font-style: normal;
+      font-weight: 700;
+    }
+
+    button{
+      border: none;
+      height: 30px;
+      background-color: #F7CA37;
+      font-style: normal;
+      font-weight: 600;
+      cursor: pointer;
+    }
 }
+}
+
+
 
 
 `;

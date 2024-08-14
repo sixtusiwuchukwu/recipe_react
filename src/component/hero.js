@@ -12,8 +12,9 @@ const Hero = () => {
           investment.
         </h1>
         <p>
-          A popular Nigeria resturant in your nearby places. We prepares and
-          serves quality food and drinks to our customer.
+          {/* A popular Nigeria resturant in your nearby places. We prepares and
+          serves quality food and drinks to our customer. */}
+          Explore a World of Flavor: Discover Delicious Recipes to Elevate Your Everyday Cooking and Impress Your Loved Ones
         </p>
         <button className="btn">Explore</button>
       </div>
