@@ -1,29 +1,57 @@
-import './App.css';
-import { BrowserRouter , Routes, Route } from 'react-router-dom';
-import LanndingPage from './pages/landingpage';
-import Recipe from './pages/recipe';
+import "./App.css";
+import { createBrowserRouter, RouterProvider,Outlet } from "react-router-dom";
+import LandingPage from "./pages/landingpage";
+import Recipe from "./pages/recipe";
+import Navbar from "./component/nav";
+import Footer from "./component/footer";
 
-const NotFound = ()=>{
+const Layout = () => {
   return (
-    <div> 
+    <div className="App">
+          <Navbar />
+          <main>
+              <Outlet /> {/* This renders the routed components */}
+          </main>
+          <Footer/>
+      </div>
+  );
+};
+
+
+const NotFound = () => {
+  return (
+    <div>
       <p>404</p>
       <h3>The page you are looking for could not be found.</h3>
     </div>
-  )
-}
-
+  );
+};
 
 function App() {
+  const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <Layout />, // Use Layout as the root element
+        errorElement: <NotFound />, // Handle not found pages within this route
+        children: [
+            {
+                path: "/",
+                element: <LandingPage />,
+            },
+            {
+                path: "recipe/:id",
+                element: <Recipe />,
+            },
+        ],
+    },
+]);
+
+
+  // Use RouterProvider to render the routes
   return (
-    <BrowserRouter>
-    <div className="App">
-    <Routes>
-    <Route path="/" element={<LanndingPage />} />
-    <Route path="/recipe/:id" element={< Recipe/>} />
-    <Route path="*" element={<NotFound />} />
-    </Routes>
-    </div>
-    </BrowserRouter>
+    
+      
+      <RouterProvider router={router} />
   );
 }
 

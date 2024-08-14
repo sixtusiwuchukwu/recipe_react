@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import imageheader from "../assets/explore.png";
 import { db } from "../recipe.db";
+import { useNavigate } from 'react-router-dom';
 const Explore = () => {
+  const navigate = useNavigate();
   const itemsPerPage = 12;
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -12,7 +14,6 @@ const Explore = () => {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = items.slice(indexOfFirstItem, indexOfLastItem);
-  console.log(currentItems, "currentItems");
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -42,7 +43,7 @@ const Explore = () => {
             }}
           >
             <p>{item.title}</p>
-            <button>View {">>"}</button>
+            <button onClick={()=>navigate(`/recipe/${item.id}`)}>View {">>"}</button>
           </div>
         ))}
         <Pagination

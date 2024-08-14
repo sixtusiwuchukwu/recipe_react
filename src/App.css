@@ -9,6 +9,9 @@
 .container{
   width:80%;
 }
+a{
+  text-decoration: none;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
