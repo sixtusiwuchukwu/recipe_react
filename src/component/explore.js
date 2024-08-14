@@ -24,13 +24,12 @@ const Explore = () => {
         <img
           src={imageheader}
           style={{ width: "150px", height: "auto" }}
-          alt="recipe image"
+          alt="recipe"
         />
         <h4>Explore Our Recipes</h4>
       </div>
       <div className="recipe-container">
         {currentItems.map((item, index) => (
-          // <div key={index} className="recipe" style={{backgroundImage:`url(${imageheader})`,backgroundPosition:'center',backgroundRepeat:'no-repeat',borderRadius:'8px',backgroundSize:'cover'}}>
           <div
             key={index}
             className="recipe"
@@ -81,7 +80,7 @@ const ExploreWrapper = styled.div`
 
     .recipe {
       position: relative;
-      background-color: brown;
+      background-color: wheat;
       width: calc(25% - 20px); /* Adjusted to fit four in a row with spacing */
       height: 200px;
       margin-bottom: 50px;
@@ -112,7 +111,7 @@ const ExploreWrapper = styled.div`
   }
 `;
 
-const Pagination_ = styled.div`
+const PaginationWrapper = styled.div`
   display: flex;
   justify-content: center;
   margin: 20px 0;
@@ -147,7 +146,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   }
   console.log(currentPage, "gg");
   return (
-    <Pagination_>
+    <PaginationWrapper>
       <button
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
@@ -169,6 +168,6 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
       >
         Next
       </button>
-    </Pagination_>
+    </PaginationWrapper>
   );
 };
