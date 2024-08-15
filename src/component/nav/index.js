@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"; 
+import React, {  useState } from "react"; 
 import { Nav } from "../nav.style";
 import logo from "../../assets/logo.png"
 import { NavLink } from "react-router-dom";
@@ -15,16 +15,16 @@ const Navbar = ()=>{
                 </NavLink>
                 <p className='mobile-screen_' style={{fontSize:'20px'}} onClick={()=>setShow(!show)}>{show ? "X" : '|||'}</p>
                <ul className="large-screen">
-                <li>Home</li>
+                <NavLink to={'/'} style={{color:'black'}}>Home</NavLink>
                 <li>About us</li>
                 <li>Explore</li>
-                <li>Create-Recipe</li>
+                <NavLink to={'/recipe/create'} style={{color:'black'}}>Create-Recipe</NavLink>
                </ul> 
                {show && <ul className="mobile-screen">
-                <li onClick={()=>setShow(false)}>Home</li>
+                <NavLink style={{color:'black'}} onClick={()=>setShow(false)}>Home</NavLink>
                 <li onClick={()=>setShow(false)}>About us</li>
                 <li onClick={()=>setShow(false)}>Explore</li>
-                <li onClick={()=>setShow(false)}>Create-Recipe</li>
+                <NavLink style={{color:'black'}} onClick={()=>setShow(false)}>Create-Recipe</NavLink>
                </ul>}
             </Nav>
                

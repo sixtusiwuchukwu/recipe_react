@@ -4,6 +4,7 @@ import LandingPage from "./pages/landingpage";
 import Recipe from "./pages/recipe";
 import Navbar from "./component/nav";
 import Footer from "./component/footer";
+import CreateRecipeForm from "./component/recipe/recipeForm";
 
 const Layout = () => {
   return (
@@ -39,6 +40,13 @@ function App() {
                 element: <LandingPage />,
             },
             {
+                path: "recipe/create",
+                element: <CreateRecipeForm />,
+            }, {
+                path: "/recipe/edit",
+                element: <CreateRecipeForm />,
+            },
+            {
                 path: "recipe/:id",
                 element: <Recipe />,
             },
@@ -47,10 +55,7 @@ function App() {
 ]);
 
 
-  // Use RouterProvider to render the routes
-  return (
-    
-      
+  return ( 
       <RouterProvider router={router} />
   );
 }

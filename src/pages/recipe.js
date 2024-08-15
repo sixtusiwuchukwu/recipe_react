@@ -1,16 +1,26 @@
 import React from "react";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { db } from "../recipe.db";
 import imageheader from "../assets/explore.png";
 
 const Recipe = () => {
   const { id } = useParams();
+  const navigate = useNavigate()
 
   const recipe = db.filter((item) => item.id === Number(id))[0];
 
-  console.log(recipe, "recipe", id);
+const HandleDelete =()=>{
+  let proceed = window.confirm(`You are about to delete ${recipe.title} recipe ?`)
+  if(proceed){
+    // query to delete the recipe
+    navigate("/")
+  }
+}
 
+const HandleEdit=()=>{
+  navigate(`/recipe/edit`, { state: { recipeData: recipe } });
+}
   return (
     <Wrapper>
       <div className="header">
@@ -20,11 +30,13 @@ const Recipe = () => {
           alt="recipe"
         />
         <h4> {recipe.title} Recipe </h4>
-        <NavLink to={'/'} style={{color:'white',fontWeight:'bolder',paddingTop:'50px'}}>Home | Recipe-Details</NavLink>
+        <NavLink to={'/'} style={{color:'white',fontWeight:'bolder'}}>Home {'>'} Recipe-Details</NavLink><br/>
+      <button className={'action-btn'} onClick={()=>HandleEdit()} style={{marginRight:'10px'}}>Edit </button>
+      <button className={'action-btn'} onClick={()=>HandleDelete()}>Delete</button>
       </div>
       <main>
         <div className="recipe-image-container">
-          <img src={recipe.image} width={"100%"} height={"400px"} />
+          <img src={recipe.image} width={"100%"} height={"400px"} alt="recipe"/>
         </div>
         <div className="details">
                 <h5>{recipe.title} Ingredients</h5>
@@ -49,11 +61,25 @@ export default Recipe;
 
 export const Wrapper = styled.div`
   min-height: 70vh;
+  .action-btn{
+    border: none;
+    background-color: black;
+    color: white;
+    width: 20%;
+    height: 40px;
+    /* margin-top: 20px; */
+    font-size: 16px;
+    border-radius: 8px;
+  }
 
   .header {
     text-align: center;
     background-color: #f7ca37;
     padding: 30px 0px;
+    a{
+          display: block;
+          padding-top: 13px;
+    }
 
     h4 {
       margin: 0;
@@ -102,13 +128,14 @@ export const Wrapper = styled.div`
         }
         a{
           font-size: 14px;
+          display: block;
+          padding-top: 13px;
         }
       }
       main{
         padding: 20px;
        .recipe-image-container{
         width: 100%;
-        border:1px solid red;
        }
        .details{
         width: 100%;
@@ -123,6 +150,9 @@ export const Wrapper = styled.div`
         a{
           font-size: 14px;
         }
+      }
+      .action-btn{
+        width: 30%;
       }
     }
 `;
