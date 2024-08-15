@@ -16,8 +16,8 @@ const Navbar = ()=>{
                 <p className='mobile-screen_' style={{fontSize:'20px'}} onClick={()=>setShow(!show)}>{show ? "X" : '|||'}</p>
                <ul className="large-screen">
                 <NavLink to={'/'} style={{color:'black'}}>Home</NavLink>
-                <li>About us</li>
-                <li>Explore</li>
+                <NavLink  style={{color:'black'}}to={'/about'}>About us</NavLink>
+                <NavLink style={{color:'black'}} to={'/#explore'}>Explore</NavLink>
                 <NavLink to={'/recipe/create'} style={{color:'black'}}>Create-Recipe</NavLink>
                </ul> 
                {show && <ul className="mobile-screen">

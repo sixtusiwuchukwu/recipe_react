@@ -10,7 +10,7 @@ padding:10px 100px;
 }
 
 
-li{
+li,a{
     list-style: none;
     cursor: pointer;
     font-weight: 400;
@@ -18,7 +18,7 @@ li{
   transition: border-bottom 0.3s ease, color 0.3s ease, transform 0.3s ease;
 
 }
-li:hover{
+li,a:hover{
     border-bottom: 2px solid #F8CC36;
     transform: translateY(-2px); /* Slightly lift the item on hover */
 
@@ -52,7 +52,7 @@ ul{
     height: 195px;
     margin: 0;
     padding: 0;
-    li{
+    li,a{
         border-bottom: 1px solid #F8CC36;
         width: 100%;
         padding: 15px 20px;
