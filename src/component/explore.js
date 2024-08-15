@@ -78,6 +78,12 @@ const ExploreWrapper = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    @media screen and (max-width: 768px) {
+      padding: 40px 50px;
+    }
+     @media screen and (max-width: 600px) {
+      padding: 40px 20px;
+    }
 
     .recipe {
       position: relative;
@@ -91,7 +97,13 @@ const ExploreWrapper = styled.div`
       overflow: hidden;
       transition: background-size 0.3s ease-in-out, filter 0.3s ease-in-out;
       box-shadow: inset 0 0 0 100vmax rgba(0,0,0,.3);
-      
+
+      @media screen and (max-width: 768px) {
+      width: calc(35% - 20px);
+    }
+     @media screen and (max-width: 600px) {
+      width: calc(100% - 10px);
+    }
      
 
       p {
@@ -110,6 +122,8 @@ const ExploreWrapper = styled.div`
       }
     }
   }
+
+ 
 `;
 
 const PaginationWrapper = styled.div`

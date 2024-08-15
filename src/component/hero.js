@@ -28,13 +28,27 @@ const Hero = () => {
 const HeroSection = styled.div`
   min-height: 50vh;
   display: flex;
+  flex-wrap: wrap;
   padding: 20px 100px;
   justify-content: space-between;
   align-content: center;
   /* align-items: center; */
+  @media screen and (max-width: 768px) {
+    padding: 20px 55px;
+    }
+     @media screen and (max-width: 600px) {
+      padding: 20px 27px;
+      .right{
+        img{
+        width:340px !important;
+      }
+      }
+     
+    }
 
   .left {
     width: 50%;
+  
     h1 {
       /* width: 60%; */
       font-size: 60px;
@@ -84,5 +98,36 @@ const HeroSection = styled.div`
     width: 40%;
     height: 30vh;
   }
+
+  @media screen and (max-width: 768px) {
+   
+      .left{
+        width: 100%;
+      }
+
+      .right{
+        width: 100%;
+        height: auto;
+        padding-top: 70px;
+      }
+    }
+     @media only screen and (max-width: 600px) {
+      .left{
+        h1{
+          font-size: 20px;
+          line-height: normal;
+        }
+      }
+     }
 `;
 export default Hero;
+// @media only screen and (max-width: 600px) {}
+
+// /* Small devices (portrait tablets and large phones, 600px and up) */
+// @media only screen and (min-width: 600px) {}
+
+// /* Medium devices (landscape tablets, 768px and up) */
+// @media only screen and (min-width: 768px) {}
+
+// /* Large devices (laptops/desktops, 992px and up) */
+// @media only screen and (min-width: 992px) {}

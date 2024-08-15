@@ -68,6 +68,7 @@ export const Wrapper = styled.div`
     display: flex;
     padding: 20px 100px;
     justify-content: space-between;
+    flex-wrap: wrap;
 
     .recipe-image-container {
       width: 40%;
@@ -93,4 +94,35 @@ export const Wrapper = styled.div`
         }
     }
   }
+
+  @media screen and (max-width: 900px) {
+      .header{
+        h4{
+          font-size: 14px;
+        }
+        a{
+          font-size: 14px;
+        }
+      }
+      main{
+        padding: 20px;
+       .recipe-image-container{
+        width: 100%;
+        border:1px solid red;
+       }
+       .details{
+        width: 100%;
+       }
+      }
+    }
+      @media screen and (max-width: 600px) {
+      .header{
+        h4{
+          font-size: 14px;
+        }
+        a{
+          font-size: 14px;
+        }
+      }
+    }
 `;
