@@ -5,6 +5,34 @@ import "react-quill/dist/quill.snow.css";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 
+
+const validateRecipeInput = (recipe) => {
+  const errors = {};
+
+  if (!recipe.title || recipe.title.trim().length < 3) {
+    errors.title = "Title is required and should be at least 3 characters long.";
+  }
+
+  if (!recipe.description || recipe.description.trim().length < 5) {
+    errors.description = "Description is required and should be at least 5 characters long.";
+  }
+
+  if (!recipe.ingredients || recipe.ingredients.length === 0) {
+    errors.ingredients = "At least one ingredient is required.";
+  }
+
+  if (!recipe.instructions || recipe.instructions.trim().length === 0) {
+    errors.instructions = "Instructions are required.";
+  }
+
+  const imagePattern = /^(data:image\/[a-z]+;base64,|http:\/\/|https:\/\/)/;
+  if (!recipe.image || !imagePattern.test(recipe.image)) {
+    errors.image = "Valid image URL or base64 string is required.";
+  }
+
+  return errors;
+};
+
 const CreateRecipe = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -54,11 +82,17 @@ const CreateRecipe = () => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+    const errors = validateRecipeInput({recipeName, ingredients, instructions, image});
+
+    if (Object.keys(errors).length > 0) {
+      alert(Object.values(errors).join("\n"));
+      return;
+    }
     const uniqueId = generateUniqueId();
 
     localStorage.setItem("xx-recipe-", uniqueId);
 
-    let response = await axios.post(
+     await axios.post(
       `https://recipe-server-2fbx.onrender.com/api/recipes`,
       {
         title: recipeName,
@@ -83,6 +117,13 @@ const CreateRecipe = () => {
   const handleUpdate = async (e) => {
     e.preventDefault();
     setLoading(true);
+    const errors = validateRecipeInput({recipeName, ingredients, instructions, image});
+
+    if (Object.keys(errors).length > 0) {
+      alert(Object.values(errors).join("\n"));
+      return;
+    }
+    
     const response = await axios.put(
       `https://recipe-server-2fbx.onrender.com/api/recipes/${recipeData._id}`,
       {
