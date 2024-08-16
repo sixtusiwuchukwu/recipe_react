@@ -10,15 +10,16 @@ const Recipe = () => {
   const navigate = useNavigate()
   const [recipe,setRecipe] = useState({})
   const [loading,setLoading] = useState(true)
+  let userId = localStorage.getItem('xx-recipe-')
+  let isUser = userId === recipe.userId
 
 
-  // const recipe = db.filter((item) => item.id === Number(id))[0];
 
 const HandleDelete =async ()=>{
   let proceed = window.confirm(`You are about to delete ${recipe.title} recipe ?`)
   if(proceed){
     // query to delete the recipe
-    let response = await axios.delete(`https://recipe-server-2fbx.onrender.com/api/recipes/${recipe._id}`);
+     await axios.delete(`https://recipe-server-2fbx.onrender.com/api/recipes/${recipe._id}`);
     navigate("/")
   }
 }
@@ -47,8 +48,11 @@ useEffect(()=>{
         />
         <h4> {recipe?.title} Recipe </h4>
         <NavLink to={'/'} style={{color:'white',fontWeight:'bolder'}}>Home {'>'} Recipe-Details</NavLink><br/>
-      <button className={'action-btn'} onClick={()=>HandleEdit()} style={{marginRight:'10px'}}>Edit </button>
-      <button className={'action-btn'} onClick={()=>HandleDelete()}>Delete</button>
+      <div style={isUser ? {display :'flex',justifyContent:'center',gap:10} : {display:'none'}}>
+      <button className={'action-btn'} onClick={()=>HandleEdit()} >Edit </button>
+      <button className={'action-btn'}  onClick={()=>HandleDelete()}>Delete</button>
+      </div>
+   
       </div>
       <main>
         <div className="recipe-image-container">

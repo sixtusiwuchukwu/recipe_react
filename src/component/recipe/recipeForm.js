@@ -48,16 +48,37 @@ const CreateRecipe = () => {
     const updatedIngredients = ingredients.filter((_, i) => i !== index);
     setIngredients(updatedIngredients);
   };
+  function generateUniqueId() {
+    return `id-${Date.now()}-${Math.floor(Math.random() * 1e9)}`;
+  }
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log("new", {
-      name: recipeName,
-      ingredients,
-      instructions,
-      image,
-    });
+    const uniqueId = generateUniqueId();
+
+    localStorage.setItem("xx-recipe-", uniqueId);
+
+    let response = await axios.post(
+      `https://recipe-server-2fbx.onrender.com/api/recipes`,
+      {
+        title: recipeName,
+        ingredients,
+        instructions,
+        image,
+        userId: uniqueId,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    alert("success !");
+    setRecipeName("");
+    setIngredients([""]);
+    setInstructions("");
+    setImage(null);
+    setImagePreview(null);
   };
   const handleUpdate = async (e) => {
     e.preventDefault();

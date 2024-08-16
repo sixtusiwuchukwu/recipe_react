@@ -24,7 +24,7 @@ const Navbar = ()=>{
                 <NavLink style={{color:'black'}} onClick={()=>setShow(false)}>Home</NavLink>
                 <li onClick={()=>setShow(false)}>About us</li>
                 <li onClick={()=>setShow(false)}>Explore</li>
-                <NavLink style={{color:'black'}} onClick={()=>setShow(false)}>Create-Recipe</NavLink>
+                <NavLink to={'/recipe/create'} style={{color:'black'}} onClick={()=>setShow(false)}>Create-Recipe</NavLink>
                </ul>}
             </Nav>
                
