@@ -1,24 +1,41 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import imageheader from "../assets/explore.png";
-import { db } from "../recipe.db";
 import { useNavigate } from 'react-router-dom';
+import axios from "axios";
+
 const Explore = () => {
   const navigate = useNavigate();
   const itemsPerPage = 12;
   const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState();
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const items = [...db];
-  const totalPages = Math.ceil(items.length / itemsPerPage);
 
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = items.slice(indexOfFirstItem, indexOfLastItem);
+  // const indexOfLastItem = currentPage * itemsPerPage;
+  // const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+
+  
+  const fetchRecipes = async (page) => {
+    try {
+      const response = await axios.get(`https://recipe-server-2fbx.onrender.com/api/recipes?page=${page}&limit=${itemsPerPage}`);
+      setTotalPages(response.data?.totalPages);
+      setCurrentPage(response.data?.currentPage);
+      setItems(response.data?.recipes);
+      setLoading(false)
+    } catch (error) {
+      console.error("Error fetching recipes:", error);
+    }
+  };
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
+    fetchRecipes(pageNumber);
   };
-
+  useEffect(() => {
+    fetchRecipes(currentPage);
+  }, [currentPage]);
   return (
     <ExploreWrapper>
       <div className="subtitle">
@@ -30,7 +47,7 @@ const Explore = () => {
         <h4>Explore Our Recipes</h4>
       </div>
       <div className="recipe-container" id='explore'>
-        {currentItems.map((item, index) => (
+        {loading ? <p style={{textAlign:'center',width:'100%'}}>loading...</p> : items.map((item, index) => (
           <div
             key={index}
             className="recipe"
@@ -43,7 +60,7 @@ const Explore = () => {
             }}
           >
             <p>{item.title}</p>
-            <button onClick={()=>navigate(`/recipe/${item.id}`)}>View {">>"}</button>
+            <button onClick={()=>navigate(`/recipe/${item._id}`)}>View {">>"}</button>
           </div>
         ))}
         <Pagination
@@ -159,12 +176,11 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   for (let i = 1; i <= totalPages; i++) {
     pageNumbers.push(i);
   }
-  console.log(currentPage, "gg");
   return (
     <PaginationWrapper>
       <button
-        onClick={() => onPageChange(currentPage - 1)}
-        disabled={currentPage === 1}
+        onClick={() => onPageChange(Number(currentPage) - 1)}
+        disabled={Number(currentPage) === 1}
       >
         Prev
       </button>
@@ -172,13 +188,13 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
         <button
           key={number}
           onClick={() => onPageChange(number)}
-          className={currentPage === number ? "active" : ""}
+          className={Number(currentPage) === number ? "active" : ""}
         >
           {number}
         </button>
       ))}
       <button
-        onClick={() => onPageChange(currentPage + 1)}
+        onClick={() => onPageChange(Number(currentPage) + 1)}
         disabled={currentPage === totalPages}
       >
         Next

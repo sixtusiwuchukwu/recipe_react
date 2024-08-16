@@ -1,14 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { db } from "../recipe.db";
 import imageheader from "../assets/explore.png";
+import axios from "axios";
 
 const Recipe = () => {
   const { id } = useParams();
   const navigate = useNavigate()
+  const [recipe,setRecipe] = useState({})
+  const [loading,setLoading] = useState(true)
 
-  const recipe = db.filter((item) => item.id === Number(id))[0];
+
+  // const recipe = db.filter((item) => item.id === Number(id))[0];
 
 const HandleDelete =()=>{
   let proceed = window.confirm(`You are about to delete ${recipe.title} recipe ?`)
@@ -21,27 +25,38 @@ const HandleDelete =()=>{
 const HandleEdit=()=>{
   navigate(`/recipe/edit`, { state: { recipeData: recipe } });
 }
+
+const getRecipe =async ()=>{
+let response = await axios.get(`https://recipe-server-2fbx.onrender.com/api/recipes/${id}`)
+setRecipe(response?.data);
+setLoading(false)
+}
+
+useEffect(()=>{
+  getRecipe().then()
+},[])
   return (
     <Wrapper>
+      {loading ?< p style={{textAlign:'center'}}>Loading...</p>: <>
       <div className="header">
         <img
           src={imageheader}
           style={{ width: "150px", height: "auto" }}
           alt="recipe"
         />
-        <h4> {recipe.title} Recipe </h4>
+        <h4> {recipe?.title} Recipe </h4>
         <NavLink to={'/'} style={{color:'white',fontWeight:'bolder'}}>Home {'>'} Recipe-Details</NavLink><br/>
       <button className={'action-btn'} onClick={()=>HandleEdit()} style={{marginRight:'10px'}}>Edit </button>
       <button className={'action-btn'} onClick={()=>HandleDelete()}>Delete</button>
       </div>
       <main>
         <div className="recipe-image-container">
-          <img src={recipe.image} width={"100%"} height={"400px"} alt="recipe"/>
+          <img src={recipe?.image} width={"100%"} height={"400px"} alt="recipe"/>
         </div>
         <div className="details">
-                <h5>{recipe.title} Ingredients</h5>
+                <h5>{recipe?.title} Ingredients</h5>
             <ul>
-                {recipe.ingredients.map((item,key)=>(
+                {recipe?.ingredients?.map((item,key)=>(
                     <li key={key}>{item}</li>
                 ))}
             </ul>
@@ -53,6 +68,7 @@ const HandleEdit=()=>{
 
         </div>
       </main>
+      </>}
     </Wrapper>
   );
 };

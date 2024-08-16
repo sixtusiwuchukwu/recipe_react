@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import ReactQuill from 'react-quill'; // Assuming React Quill is used as the text editor
 import 'react-quill/dist/quill.snow.css';
-import { useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 
 
 
 
 const CreateRecipe = () => {
   const location = useLocation();
+  const navigate = useNavigate()
   const { recipeData } = location.state || {}; 
   const [recipeName, setRecipeName] = useState(recipeData?.title || '');
   const [ingredients, setIngredients] = useState(recipeData?.ingredients || ['']);
@@ -71,6 +72,7 @@ const CreateRecipe = () => {
   return (
     <FormContainer>
       <FormTitle>{ recipeData ? `Edit ${recipeData.title}` :'Create a New Recipe'}</FormTitle>
+      {recipeData && <NavLink onClick={()=>navigate.goBack()} style={{fontWeight:'bolder',display:'block', color:"#F8CC36",marginBottom:'20px'}} to={`/recipe/${recipeData._id}`}>Explore  {'>'} Edit</NavLink>}
       <form onSubmit={recipeData ? handleUpdate : handleFormSubmit}>
         <InputWrapper  >
         <InputField
