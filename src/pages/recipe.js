@@ -14,10 +14,11 @@ const Recipe = () => {
 
   // const recipe = db.filter((item) => item.id === Number(id))[0];
 
-const HandleDelete =()=>{
+const HandleDelete =async ()=>{
   let proceed = window.confirm(`You are about to delete ${recipe.title} recipe ?`)
   if(proceed){
     // query to delete the recipe
+    let response = await axios.delete(`https://recipe-server-2fbx.onrender.com/api/recipes/${recipe._id}`);
     navigate("/")
   }
 }
