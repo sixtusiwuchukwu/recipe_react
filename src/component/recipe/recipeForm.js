@@ -13,8 +13,8 @@ const validateRecipeInput = (recipe) => {
     errors.title = "Title is required and should be at least 3 characters long.";
   }
 
-  if (!recipe.description || recipe.description.trim().length < 5) {
-    errors.description = "Description is required and should be at least 5 characters long.";
+  if (!recipe.instructions || recipe.instructions.trim().length < 5) {
+    errors.description = "Instruction is required and should be at least 5 characters long.";
   }
 
   if (!recipe.ingredients || recipe.ingredients.length === 0) {
@@ -82,7 +82,9 @@ const CreateRecipe = () => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    const errors = validateRecipeInput({recipeName, ingredients, instructions, image});
+    const errors = validateRecipeInput({title:recipeName, ingredients, instructions, image});
+    console.log({recipeName, ingredients, instructions, image})
+    console.log(errors)
 
     if (Object.keys(errors).length > 0) {
       alert(Object.values(errors).join("\n"));
