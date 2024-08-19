@@ -10,7 +10,7 @@ padding:10px 100px;
 }
 
 
-li,a{
+li,.link,.logo{
     list-style: none;
     cursor: pointer;
     font-weight: 400;
@@ -18,7 +18,7 @@ li,a{
   transition: border-bottom 0.3s ease, color 0.3s ease, transform 0.3s ease;
 
 }
-li,a:hover{
+li,.link:hover{
     border-bottom: 2px solid #F8CC36;
     transform: translateY(-2px); /* Slightly lift the item on hover */
 
