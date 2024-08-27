@@ -15,6 +15,7 @@ const Recipe = () => {
   const [loading,setLoading] = useState(true)
   let userId = localStorage.getItem('xx-recipe-')
   let isUser = userId === recipe.userId
+  console.log(recipe.userId,"userId",isUser);
 
 
 
