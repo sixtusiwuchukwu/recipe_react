@@ -54,10 +54,10 @@ useEffect(()=>{
         />
         <h4> {recipe?.title} Recipe </h4>
         <NavLink to={'/'} style={{color:'white',fontWeight:'bolder'}}>Home {'>'} Recipe-Details</NavLink><br/>
-      <div style={isUser ? {display :'flex',justifyContent:'center',gap:10} : {display:'none'}}>
+    {isUser &&  <div style={{display :'flex',justifyContent:'center',gap:10}}>
       <button className={'action-btn'} onClick={()=>HandleEdit()} >Edit </button>
       <button className={'action-btn'}  onClick={()=>HandleDelete()}>Delete</button>
-      </div>
+      </div>}
    
       </div>
       <main>
