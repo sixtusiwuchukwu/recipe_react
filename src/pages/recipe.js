@@ -13,10 +13,9 @@ const Recipe = () => {
   const navigate = useNavigate()
   const [recipe,setRecipe] = useState({})
   const [loading,setLoading] = useState(true)
-  let userId = localStorage.getItem('xx-recipe-')
-  let isUser = userId === recipe.userId
-  console.log(recipe.userId,"userId",isUser);
-
+  const [isUser,setIsUser] = useState(false);
+  
+console.log(isUser);
 
 
 const HandleDelete =async ()=>{
@@ -35,6 +34,9 @@ const HandleEdit=()=>{
 const getRecipe =async ()=>{
 let response = await axios.get(`https://recipe-server-2fbx.onrender.com/api/recipes/${id}`)
 setRecipe(response?.data);
+let userId = localStorage.getItem('xx-recipe-')
+  let isUser = userId === response?.data?.userId
+  setIsUser(isUser);
 setLoading(false)
 }
 
